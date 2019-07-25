@@ -1,2 +1,8 @@
-Step 1
-Step 2
+For server app step up follow - 
+https://docs.microsoft.com/en-us/azure/azure-functions/tutorial-vs-code-serverless-python
+
+For web app
+install latest node
+npm i
+npm run start
+
