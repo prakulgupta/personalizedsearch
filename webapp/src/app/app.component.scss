@@ -155,13 +155,14 @@
 .banner_img{
     position: absolute;
     z-index: 2;
-    width: 85%
+    width: 800px;
+    height: 210px;
 }
 
 .banner_img_loggedin{
     position: absolute;
     z-index: 2;
-    width: 70%;
-    height: 250px;
+    width: 770px;
+    height: 210px;
     margin-left: 85px;
 }
