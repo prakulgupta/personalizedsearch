@@ -147,6 +147,7 @@
     background-color: #fff;
 }
 .result_bluelink{
+    margin-left: 50px;
     margin-top: 150px;
     z-index: 0;
     position: absolute;
@@ -155,7 +156,7 @@
 .banner_img{
     position: absolute;
     z-index: 2;
-    width: 800px;
+    width: 730px;
     height: 210px;
 }
 
@@ -165,4 +166,8 @@
     width: 770px;
     height: 210px;
     margin-left: 85px;
+}
+
+.promo_banner{
+    margin-left: 45px;
 }

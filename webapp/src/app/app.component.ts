@@ -166,6 +166,6 @@ export class AppComponent {
 
     setTimeout(() => {
       this.hideBlueLinkSearchBox();
-    }, 1500);
+    }, 1200);
   }
 }
