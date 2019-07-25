@@ -1,0 +1,61 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container">
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <a class="b_logoArea" href="/?FORM=Z9FD1" h="ID=SERP,5024.1">
+      <h1 class="b_logo" title="Back to Bing search" aria-label="Go to Bing homepage" data-bm="1">
+        <img class="b_logo_img" src="/assets/img/SharedSpriteDesktop_2x_040919.png" alt="Go to Bing homepage"
+          title="Back to Bing search" data-bm="21"></h1>
+    </a>
+    <div class="b_searchboxForm">
+      <input class="b_searchbox" type="text" formControlName="searchData" (keyup.enter)="onSubmit()">
+      <div id="sb_go_par">
+        <input type="button" class="b_searchboxSubmit" id="sb_form_go" tabindex="-1" name="go" value="Search"
+         (click)="onSubmit()">
+      </div>
+    </div>
+    <div class="b_login">
+      <app-login (messageEvent)="receiveMessage($event)" (logoutEvent)="loggedOutAction($event)"></app-login>
+    </div>
+    <br>
+    <br>
+    <div>
+      <div class="promo_banner" *ngIf="!resultFlag && !loggedin">
+          <img class="banner_img" src="./../assets/img/bannerbing2.png">
+      </div>
+      <div class="banner_img_loggedin" *ngIf="loggedin && !resultFlag">
+          <img class="banner_img" src="./../assets/img/bannerbing5.png">
+      </div>
+      <div *ngIf="resultFlag" class="result_card">
+        <div class="search-slider ">
+          <ol class="b_card_list">
+            <ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig"
+              (afterChange)="afterChange($event)">
+              <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+                <li class="b_card">
+                  <a class="a_card" href="{{slide.link}}" target="_blank">
+                    <div>
+                      <img src="./../assets/img/download.png" class="site_symbol">
+                      <!-- <img class="card-img" src="assets/img/avatar-female.png"> -->
+                      <img class="card-img" src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&name={{slide.initials}}">
+                    </div>
+                    <div class="cardInfo">
+                      <strong class="card_name">{{slide.name}} (1st)</strong>
+                      <div class="card_headline">{{slide.headline}}</div>
+                    </div>
+                  </a>
+                </li>
+              </div>
+            </ngx-slick>
+            <div *ngIf="resultFlag && slides.length == 0">Seems like you don't have any connection which matches the query, you can try some another query.</div>
+          </ol>
+        </div>
+      </div>
+      <div class="result_bluelink">
+        <div #customSearch>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<router-outlet></router-outlet>

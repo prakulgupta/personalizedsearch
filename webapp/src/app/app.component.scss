@@ -1,0 +1,167 @@
+.container{
+    background:#fff;
+    height: 500px;
+    margin-top: 30px;
+}
+
+.b_logoArea{
+    text-align: right;
+    width: 86px;
+    height: 40px;
+    margin: 0 14px 0 0;
+    vertical-align: top;
+    display: inline-block;
+}
+.b_logo{
+    background: none;
+    display: inline-block;
+    width: 28px;
+    height: 36px;
+    text-indent: 0;
+    overflow: hidden;
+    direction: ltr;
+    text-align: left;
+    margin-top: 2px;
+    vertical-align: top;    
+}
+
+.b_logo_img{
+    transform-origin: 0 0;
+    transform: scale(.5);
+}
+.b_searchboxForm{
+    display: inline-block;
+    background-color: #fff;
+    font: 18px/normal 'Segoe UI',Arial,Helvetica,Sans-Serif;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 2px 4px 1px rgba(0,0,0,.18)
+}
+
+.b_login{
+    display: inline-block;
+    margin-left: 20px;
+}
+#sb_go_par{
+    display: inline;
+}
+.b_searchboxSubmit{
+    background-image: url(/assets/img/SharedSpriteDesktop_2x_040919.png);
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 40px;
+    text-indent: -99em;
+    border-width: 0;
+    border-style: solid;
+    margin: 0;
+    background-position: -242px 0;
+    transform: scale(.5);
+    background-color: #fff;
+    border-color: #fff;
+}
+.b_searchbox{
+    width: 578px;
+    margin-right: 10px;
+    padding-right: 25px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin: 5px 0 1px 20px;
+    padding: 0 10px 0 0;
+    border: 0;
+    max-height: 30px;
+    outline: none;
+    height: 35px;
+    vertical-align: top;
+    border-radius: 6px;
+}
+.search-box{
+    width:25%;
+    height: 30px;
+}
+.search-slider{
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #f5f5f5
+}
+
+.b_card_list{
+    padding: 0 40px 0 75px;
+}
+.b_card{  
+    padding: 2px 2px 2px 2px;
+    list-style: none;
+    width: 160px;
+    height: 230px;
+    background: white;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 0 0 1px rgba(0,0,0,.05), 0 2px 3px 0 rgba(0,0,0,.1)
+}
+
+.b_card_tit{
+    padding: 8px 8px 0 8px;
+    word-wrap: break-word;
+    white-space: normal;
+}
+.card-img{
+    height: 100px;
+    width: 100px;
+    margin: auto;
+}
+
+.site_symbol{
+    height: 30px;
+    width: 30px
+}
+.card_name{
+    font-size: 12pt;
+}
+
+.card_headline{
+    font-size: 10pt;
+}
+
+.cardInfo{
+    margin-left: 5px;
+}
+
+.a_card{
+    text-decoration: none;
+    color: black;
+}
+.container_result{
+    position: relative;
+    z-index: 1;
+}
+
+.result_card{
+    min-height: 110px;
+    z-index: 2;
+    height: 200px;
+    width: 85%;
+    position: absolute;
+    background-color: #fff;
+}
+.result_bluelink{
+    margin-top: 150px;
+    z-index: 0;
+    position: absolute;
+}
+
+.banner_img{
+    position: absolute;
+    z-index: 2;
+    width: 85%
+}
+
+.banner_img_loggedin{
+    position: absolute;
+    z-index: 2;
+    width: 70%;
+    height: 250px;
+    margin-left: 85px;
+}

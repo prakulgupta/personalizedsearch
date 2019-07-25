@@ -1,0 +1,27 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center" class="container">
+    <h1>
+      Bing
+    </h1>
+  
+    <form>
+      <div class="md-form mt-0">
+        <input class="form-control mr-sm-2 search-box" type="text" placeholder="Search">
+      </div>
+      <br>
+      <div class="search-slider">
+        <ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig" (afterChange)="afterChange($event)">
+          <div ngxSlickItem *ngFor="let slide of slides" class="slide">           
+            <div class="search-card">
+                <img src="{{ slide.img }}" class="card-img">
+                <div>
+                    {{slide.name}}
+                </div>
+              </div>
+          </div>
+        </ngx-slick>
+      </div>
+    </form>
+  </div>
+  
+  <router-outlet></router-outlet>
