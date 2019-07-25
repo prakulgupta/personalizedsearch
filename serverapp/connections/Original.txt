@@ -1,0 +1,123 @@
+import logging
+import os.path
+from os import path
+import azure.functions as func
+import json
+from linkedin_api import Linkedin
+import numpy as np
+
+
+def main(req: func.HttpRequest) -> func.HttpResponse:
+    logging.info('Python HTTP trigger function processed a request.')
+
+    return getConnections(req)
+
+def getFileData(email):
+    with open(email+'.txt', 'r', encoding="utf-8") as file:
+            data = file.read()
+            filteredConnections = data.split(',')
+    return filteredConnections
+
+def getConnections(req: func.HttpRequest) -> func.HttpResponse:
+    content = req.get_json()
+    logging.info(content)
+    api = Linkedin(content['email'], content['password'])
+    tag = content['tag'].lower()
+    keyword = content['keyword'].lower()
+    email = content['email']
+    
+    filteredConnections = []
+    ids = ''
+
+    if (path.exists(email+'.txt') == False or len(getFileData(email)) <= 1):
+        logging.info("Starting Search People")
+        connections=api.search_people(limit=50)      
+        for connection in connections:
+            id = connection['public_id']            
+            if (connection['distance'] == 'DISTANCE_1'):
+                filteredConnections.append(id)
+                ids=ids+','+id
+        with open(email+'.txt', 'w', encoding="utf-8") as file:
+            file.write(ids)
+    else:
+        filteredConnections = getFileData(email)
+    
+    querry = []
+    # for item in connections:
+    totalCount = len(filteredConnections)
+    count = 0
+    for public_id in filteredConnections:
+        count = count + 1
+        if (count > 30 or len(querry) >= 8):
+            break
+        data = {}
+        retrieve = api.get_profile(public_id)
+        logging.info(retrieve)
+        if (tag == 'location'):
+            if ('locationName' in retrieve and keyword in retrieve['locationName'].lower()):
+                name = retrieve['firstName']+' '+retrieve['lastName']
+                link = 'https://www.linkedin.com/in/'+public_id+'/'
+                # imgr=retrieve['profilePictureOriginalImage']['com.linkedin.common.VectorImage']['rootUrl']
+                # imgi=retrieve['profilePictureOriginalImage']['com.linkedin.common.VectorImage']['artifacts'][1]['fileIdentifyingUrlPathSegment']
+                data['name'] = name
+                data['link'] = link
+                data['headline'] = retrieve['headline']
+                data['initials'] = ''.join(letter[0].upper()
+                                        for letter in name.split())
+                # data['img']=imgr+imgi
+                querry.append(data)
+            elif ('geoLocationName' in retrieve and keyword in retrieve['geoLocationName'].lower()):
+                name = retrieve['firstName']+' '+retrieve['lastName']
+                link = 'https://www.linkedin.com/in/'+public_id+'/'
+                # imgr=retrieve['profilePictureOriginalImage']['com.linkedin.common.VectorImage']['rootUrl']
+                # imgi=retrieve['profilePictureOriginalImage']['com.linkedin.common.VectorImage']['artifacts'][1]['fileIdentifyingUrlPathSegment']
+                data['name'] = name
+                data['link'] = link
+                data['headline'] = retrieve['headline']
+                data['initials'] = ''.join(letter[0].upper()
+                                        for letter in name.split())
+                # data['img']=imgr+imgi
+                querry.append(data)
+        elif (tag == 'company'):
+            if (keyword in retrieve['experience'][0]['companyName'].lower()):
+                name = retrieve['firstName']+' '+retrieve['lastName']
+                link = 'https://www.linkedin.com/in/'+public_id+'/'
+                # imgr=retrieve['profilePictureOriginalImage']['com.linkedin.common.VectorImage']['rootUrl']
+                # imgi=retrieve['profilePictureOriginalImage']['com.linkedin.common.VectorImage']['artifacts'][1]['fileIdentifyingUrlPathSegment']
+                data['name'] = name
+                data['link'] = link
+                data['headline'] = retrieve['headline']
+                data['initials'] = ''.join(letter[0].upper()
+                                        for letter in name.split())
+                # data['img']=imgr+imgi
+                querry.append(data)
+        elif (tag == 'title'):
+            if (keyword in retrieve['experience'][0]['title'].lower()):
+                name = retrieve['firstName']+' '+retrieve['lastName']
+                link = 'https://www.linkedin.com/in/'+public_id+'/'
+                # imgr=retrieve['profilePictureOriginalImage']['com.linkedin.common.VectorImage']['rootUrl']
+                # imgi=retrieve['profilePictureOriginalImage']['com.linkedin.common.VectorImage']['artifacts'][1]['fileIdentifyingUrlPathSegment']
+                data['name'] = name
+                data['link'] = link
+                data['headline'] = retrieve['headline']
+                data['initials'] = ''.join(letter[0].upper()
+                                        for letter in name.split())
+                # data['img']=imgr+imgi
+                querry.append(data)
+        elif (tag == 'skills'):
+            skillist = retrieve['Skills']
+            if any(keyword in s.lower() for s in skillist[1:]):
+                name = retrieve['firstName']+' '+retrieve['lastName']
+                link = 'https://www.linkedin.com/in/'+public_id+'/'
+                # imgr=retrieve['profilePictureOriginalImage']['com.linkedin.common.VectorImage']['rootUrl']
+                # imgi=retrieve['profilePictureOriginalImage']['com.linkedin.common.VectorImage']['artifacts'][1]['fileIdentifyingUrlPathSegment']
+                data['name'] = name
+                data['link'] = link
+                data['headline'] = retrieve['headline']
+                data['initials'] = ''.join(letter[0].upper()
+                                        for letter in name.split())
+                # data['img']=imgr+imgi
+                querry.append(data)
+
+    #logging.info(querry)
+    return func.HttpResponse(json.dumps(querry))
